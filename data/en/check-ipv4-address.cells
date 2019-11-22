@@ -1,0 +1,153 @@
+```meta
+{
+    "title" : "Check IPv4 address"
+}
+```
+---
+```markdown
+# Check IPv4 address
+
+Here is a task. You need to write a Perl sub that return `1` if its first argument is a string with
+a valid IPv4 address and return `0` in other case. The name of that sub should be `is_valid_ipv4`.
+The sub should not output any warnings, no matter what it gets as an argument.
+
+Here is some examples of strings with valid IPv4 addresses:
+
+ * `192.168.1.1`
+ * `8.8.8.8`
+ * `0.0.0.0`
+ * `255.255.255.255`
+
+And here is some examples of strings that are not valid:
+
+ * `Hello, world!`
+ * (empty string)
+ * `255255255255` (no dots)
+ * `218.108.149.373` (the number 373 is greater that `255`
+ * `8.008.8.8` (there should not be leading zeros before the numbers)
+
+Here are the rules what is considered to be a string with a valid IPv4 address:
+
+ * Only 11 symbols are allowed in the string. The digits from `0` to `9` and a dot.
+ * The string must consist of 4 blocks of digits separated by dots
+ * Every block of digits must produce a positive number in the range from `0` to `255` (the numbers `0` and `255` are allowed)
+ * There should not be leading zeros in the beginning of a number
+
+The code you enter will be run in perl 5.30. The code is run with `use utf8;`, `use strict;` and `use warnings;`.
+You can't use any additional libraries, you can use only libraries that are shipped with perl.
+```
+---
+```user_input
+```
+---
+```perlbanjo_runner
+## meta
+{
+    "kit_id" : "perl-5.30"
+}
+## command
+prove -lv | grep -v 'wallclock secs'
+## file lib/Utils.pm
+package Utils;
+
+use utf8;
+use strict;
+use warnings;
+use Exporter;
+our @ISA = qw(Exporter);
+our @EXPORT_OK = qw(
+    is_valid_ipv4
+);
+our @EXPORT = @EXPORT_OK;
+
+USER_INPUT
+
+1;
+## file t/test.t
+use utf8;
+use strict;
+use warnings;
+use open qw(:std :utf8);
+
+use Test::More tests => 22;
+use Utils;
+
+my @valid = qw(
+    192.168.1.1
+    8.8.8.8
+    0.0.0.0
+    255.255.255.255
+);
+
+my @invalid = (
+    'Hello, world!',
+    '',
+    '255255255255',
+    '218.108.149.373',
+    undef,
+    {},
+    [],
+    sub {},
+    '192.NaN.1.1',
+    '192.168.1.1 ',
+    ' 192.168.1.1',
+    '192.1 68.1.1',
+    '192. 168.1.1',
+    '192.168.-1.1',
+    '192.168.01.1',
+    '192.168.00.1',
+    '192.1၃8.1.1',
+    "192.168.1.1\n",
+);
+
+foreach my $ip (@valid) {
+    is(is_valid_ipv4($ip), 1, "'$ip' is a valid ipv4");
+}
+
+foreach my $not_ip (@invalid) {
+
+    my $value;
+
+    if (!defined($not_ip)) {
+        $value = 'undef';
+    } elsif (ref($not_ip)) {
+        $value = ref($not_ip);
+    } elsif ($not_ip =~ /\n/) {
+        $value = $not_ip;
+        $value =~ s/\n/\\n/g
+    } else {
+        $value = $not_ip;
+    }
+
+    is(is_valid_ipv4($not_ip), 0, "'$value' is not a valid ipv4");
+
+}
+## expected_output
+t/test.t .. 
+1..22
+ok 1 - '192.168.1.1' is a valid ipv4
+ok 2 - '8.8.8.8' is a valid ipv4
+ok 3 - '0.0.0.0' is a valid ipv4
+ok 4 - '255.255.255.255' is a valid ipv4
+ok 5 - 'Hello, world!' is not a valid ipv4
+ok 6 - '' is not a valid ipv4
+ok 7 - '255255255255' is not a valid ipv4
+ok 8 - '218.108.149.373' is not a valid ipv4
+ok 9 - 'undef' is not a valid ipv4
+ok 10 - 'HASH' is not a valid ipv4
+ok 11 - 'ARRAY' is not a valid ipv4
+ok 12 - 'CODE' is not a valid ipv4
+ok 13 - '192.NaN.1.1' is not a valid ipv4
+ok 14 - '192.168.1.1 ' is not a valid ipv4
+ok 15 - ' 192.168.1.1' is not a valid ipv4
+ok 16 - '192.1 68.1.1' is not a valid ipv4
+ok 17 - '192. 168.1.1' is not a valid ipv4
+ok 18 - '192.168.-1.1' is not a valid ipv4
+ok 19 - '192.168.01.1' is not a valid ipv4
+ok 20 - '192.168.00.1' is not a valid ipv4
+ok 21 - '192.1၃8.1.1' is not a valid ipv4
+ok 22 - '192.168.1.1\n' is not a valid ipv4
+ok
+All tests successful.
+Result: PASS
+```

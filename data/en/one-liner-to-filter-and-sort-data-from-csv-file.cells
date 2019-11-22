@@ -1,0 +1,81 @@
+```meta
+{
+    "title" : "One-liner to filter and sort data from CSV file"
+}
+```
+---
+```markdown
+# One-liner to filter and sort data from CSV file
+
+Here is a task. You need to write a console one-liner to parse csv file that contains
+information about some objects in the Solar System. You can use `cat`, `sort`
+and some other common tools that are available in console. Because this site
+is dedicated to Perl language it recommended to use `perl` command, but if you like,
+you can use `awk` and `sed`.
+
+In you current working directory there is a file `solar-system.csv` with such
+content:
+
+    name,mass_to_earth,orbital_period
+    Earth,1,365.256363004
+    Jupiter,317.8,4332.59
+    Mars,0.107,779.96
+    Mercury,0.055,87.9691
+    Moon,0.606,27.321661
+    Neptune,17.147,60182
+    Pluto,0.00218,90560
+    Saturn,95.159,10759.22
+    Uranus,14.536,30688.5
+    Venus,0.815,224.701
+
+As you can see it is a CSV file. The first line is a header and all the other lines are data.
+The separator is a comma symbol. The data is written as is, there is no quotes.
+
+There are three columns in this file:
+
+ * `name` — the name of the object in the Solar System
+ * `mass_to_earth` — floating point number meaning how many Earth masses are in that object
+ * `orbital_period` — floating point number, the number of days the object rotates around star, or other planet
+
+Your task is write a command that output to STDOUT part of this data in a different form.
+
+ * In the output there should be only names of the objects
+ * Every name should be on separate line
+ * There should be only names, without header
+ * You should only output names of the objects whose `mass_to_earth` is more than `0.01`
+ * The order of the names depends on the `orbital_period`. In the first line there should be object with the smallest period.
+```
+---
+```user_input
+```
+---
+```perlbanjo_runner
+## meta
+{
+    "kit_id" : "perl-5.30"
+}
+## command
+USER_INPUT
+## file solar-system.csv
+name,mass_to_earth,orbital_period
+Earth,1,365.256363004
+Jupiter,317.8,4332.59
+Mars,0.107,779.96
+Mercury,0.055,87.9691
+Moon,0.606,27.321661
+Neptune,17.147,60182
+Pluto,0.00218,90560
+Saturn,95.159,10759.22
+Uranus,14.536,30688.5
+Venus,0.815,224.701
+## expected_output
+Moon
+Mercury
+Venus
+Earth
+Mars
+Jupiter
+Saturn
+Uranus
+Neptune
+```

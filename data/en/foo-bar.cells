@@ -1,0 +1,144 @@
+```meta
+{
+    "title" : "FooBar problem"
+}
+```
+---
+```markdown
+# FooBar problem
+Here is a task. You need to write a Perl script that will output 100 lines.
+
+Here is the example of the first four lines script should output:
+
+    1
+    2
+    Foo
+    4
+
+There are several rules that define what should be on every line.
+
+ * If other rules does not apply there should be line number in that line. The first line number is one.
+ * If all the other rules does not apply and the line number is divisible by `3` (and there is no remainder of the division) then in that line should be written `Foo`.
+ * If all the other rules does not apply and the line number is divisible by `5` (and there is no remainder of the division) then in that line should be written `Bar`.
+ * If line number is divisible by 3 and at the same time it is divisible by 5 (and in both cases there is no remainder of the division) then in that line should be written `FooBar`.
+
+The last line (as well as all the other lines) should end with new line symbol `\n`.
+
+The code you enter will be saved as a file with a name `script.pl` and it will be run as `perl script.pl`.
+It will be run with perl 5.30.
+```
+---
+```user_input
+```
+---
+```perlbanjo_runner
+## meta
+{
+    "kit_id" : "perl-5.30"
+}
+## command
+perl script.pl
+## file script.pl
+USER_INPUT
+## expected_output
+1
+2
+Foo
+4
+Bar
+Foo
+7
+8
+Foo
+Bar
+11
+Foo
+13
+14
+FooBar
+16
+17
+Foo
+19
+Bar
+Foo
+22
+23
+Foo
+Bar
+26
+Foo
+28
+29
+FooBar
+31
+32
+Foo
+34
+Bar
+Foo
+37
+38
+Foo
+Bar
+41
+Foo
+43
+44
+FooBar
+46
+47
+Foo
+49
+Bar
+Foo
+52
+53
+Foo
+Bar
+56
+Foo
+58
+59
+FooBar
+61
+62
+Foo
+64
+Bar
+Foo
+67
+68
+Foo
+Bar
+71
+Foo
+73
+74
+FooBar
+76
+77
+Foo
+79
+Bar
+Foo
+82
+83
+Foo
+Bar
+86
+Foo
+88
+89
+FooBar
+91
+92
+Foo
+94
+Bar
+Foo
+97
+98
+Foo
+Bar
+```
