@@ -1,0 +1,118 @@
+```meta
+{
+    "title" : "Find max number of consecutive numbers in the list"
+}
+```
+---
+```markdown
+# Find max number of consecutive numbers in the list
+
+You need to write a Perl sub `get_max_consecutive_numbers`.
+
+All the arguments that are passed to the sub are whole numbers.
+You need to take the first argument and check all the other
+arguments. The result is the max number of consecutive first argument
+value in all the other arguments.
+
+Here is an example of how the sub should work. The first
+argument is the number `3`. All the other arguments are `1, 2, 3, 3, 4, 3`.
+The maximum consecutive list of number `3` consist of two elements `3, 3`, so the answer is `2`.
+```
+---
+```perl
+print get_max_consecutive_numbers(3, 1, 2, 3, 3, 4, 3); # 2
+```
+---
+```markdown
+Some more examples:
+```
+---
+```perl
+print get_max_consecutive_numbers(1, 1); # 1
+print get_max_consecutive_numbers(1, 1, 2); # 1
+print get_max_consecutive_numbers(1, 1, 1, 1); # 3
+print get_max_consecutive_numbers(18, 19, 18, 18); # 2
+```
+---
+```markdown
+The code you enter will be run in perl 5.30. The code is run with `use utf8;`, `use strict;` and `use warnings;`.
+You can use any library that is shipped with perl.
+```
+---
+```user_input
+```
+---
+```perlbanjo_runner
+## meta
+{
+    "kit_id" : "perl-5.30"
+}
+## command
+prove -lv | grep -v 'wallclock secs'
+## file lib/Utils.pm
+package Utils;
+
+use utf8;
+use strict;
+use warnings;
+use Exporter;
+our @ISA = qw(Exporter);
+our @EXPORT = qw(get_max_consecutive_numbers);
+
+USER_INPUT
+
+1;
+## file t/test.t
+use strict;
+use warnings;
+
+use Test::More tests => 12;
+use Utils;
+
+my @tests = (
+    [3, 1, 2, 3, 3, 4, 3] => 2,
+    [1, 1] => 1,
+    [1, 1, 2] => 1,
+    [1, 1, 1, 1] => 3,
+    [18, 19, 18, 18] => 2,
+    [0] => 0,
+    [0, 0] => 1,
+    [0, 0, 0, 0] => 3,
+    [0, -20, 0, 0, 0, 1] => 3,
+    [-14, -14, 0, 2, 3] => 1,
+    [-8, 0, 0, -8] => 1,
+    [-9, 0, -9, 0, -9, 0] => 1,
+);
+
+while (@tests) {
+    my @arr = @{shift @tests};
+    my $expected_result = shift @tests;
+
+    my $result = get_max_consecutive_numbers(@arr);
+
+    my $test_name = sprintf(
+        '[%s] => %s',
+        join(', ', @arr),
+        $expected_result,
+    );
+    is($result, $expected_result, $test_name)
+}
+## expected_output
+t/test.t .. 
+1..12
+ok 1 - [3, 1, 2, 3, 3, 4, 3] => 2
+ok 2 - [1, 1] => 1
+ok 3 - [1, 1, 2] => 1
+ok 4 - [1, 1, 1, 1] => 3
+ok 5 - [18, 19, 18, 18] => 2
+ok 6 - [0] => 0
+ok 7 - [0, 0] => 1
+ok 8 - [0, 0, 0, 0] => 3
+ok 9 - [0, -20, 0, 0, 0, 1] => 3
+ok 10 - [-14, -14, 0, 2, 3] => 1
+ok 11 - [-8, 0, 0, -8] => 1
+ok 12 - [-9, 0, -9, 0, -9, 0] => 1
+ok
+All tests successful.
+Result: PASS
+```
