@@ -1,0 +1,90 @@
+```meta
+{
+    "title" : "Count Mondays in a year"
+}
+```
+---
+```markdown
+# Count Mondays in a year
+
+Your task is to write a Perl sub `get_mondays_count_for_year()` that return number of Mondays in a given year.
+
+The first argument to the sub is alwasys a scalar with year. The year is a integer number in a range from `1900` to
+`2100`. The first argument is always present and it is always valid.
+
+The code you enter will be run in perl 5.30. The code is run with `use utf8;`, `use strict;` and `use warnings;`.
+You can use any library that is shipped with perl, but you can't use any additional libraries.
+```
+---
+```user_input
+```
+---
+```perlbanjo_runner
+## meta
+{
+    "kit_id" : "perl-5.30"
+}
+## command
+prove -lv | grep -v 'wallclock secs'
+## file lib/Utils.pm
+package Utils;
+
+use utf8;
+use strict;
+use warnings;
+use Exporter;
+our @ISA = qw(Exporter);
+our @EXPORT_OK = qw(
+	get_mondays_count_for_year
+);
+our @EXPORT = @EXPORT_OK;
+
+USER_INPUT
+
+1;
+## file t/test.t
+use utf8;
+use strict;
+use warnings;
+use open qw(:std :utf8);
+
+use Test::More tests => 9;
+use Utils;
+
+my %year2mondays = (
+    1900 => 53,
+    1932 => 52,
+    1992 => 52,
+    1996 => 53,
+    2007 => 53,
+    2018 => 53,
+    2019 => 52,
+    2020 => 52,
+    2100 => 52,
+);
+
+foreach my $year (sort keys %year2mondays) {
+
+    is(
+        get_mondays_count_for_year($year),
+        $year2mondays{$year},
+        "year $year has $year2mondays{$year} Mondays",
+    );
+
+}
+## expected_output
+t/test.t .. 
+1..9
+ok 1 - year 1900 has 53 Mondays
+ok 2 - year 1932 has 52 Mondays
+ok 3 - year 1992 has 52 Mondays
+ok 4 - year 1996 has 53 Mondays
+ok 5 - year 2007 has 53 Mondays
+ok 6 - year 2018 has 53 Mondays
+ok 7 - year 2019 has 52 Mondays
+ok 8 - year 2020 has 52 Mondays
+ok 9 - year 2100 has 52 Mondays
+ok
+All tests successful.
+Result: PASS
+```
