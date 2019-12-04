@@ -12,7 +12,7 @@ some data.
 
 Here is the sample .csv file (the real file has more rows, but it has the same format):
 
-    1575463408,umcv,687
+    1575463408,umcov,687
     1575463400,pimvj,541
 
 Some details of the format:
