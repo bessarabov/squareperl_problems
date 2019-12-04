@@ -1,0 +1,79 @@
+```meta
+{
+    "title" : "One-liner to convert timestamp to ISO 8601 and to sort data from CSV file"
+}
+```
+---
+```markdown
+# One-liner to convert timestamp to ISO 8601 and to sort data from CSV file
+
+Here is a task. You need to write a console one-liner to parse .csv file that contains
+some data.
+
+Here is the sample .csv file (the real file has more rows, but it has the same format):
+
+    1575463408,umcv,687
+    1575463400,pimvj,541
+
+Some details of the format:
+
+ * there is no header in the csv file
+ * the separator is a comma symbol `,`
+
+Here is the description of the data in the .csv file:
+
+ * the first element is an int. It is a timestamp (number of seconds starting from `1970-01-01T00:00:00Z`). It this .csv file there can be timestamps from year starting not before 1900 and not after 2100
+ * the second element is a string. The length of the string is always 5 and it consists of lowercase symbols from letter `a` to letter `z`
+ * the second element is a string. The length of the string is always 3 and it consists of numbers from `0` to `9`
+ * the timestamps in the .csv files are unique
+
+Your task is to write a command that output to STDOUT the data from csv file in a different form.
+
+Here is an example of the expected output
+
+    pimvj     2019-12-04T12:43:20Z     541
+    umcov     2019-12-04T12:43:28Z     687
+
+ * for every line in the original .csv file there should be a line in STDOUT
+ * all the lines must be sorted by the timestamp, the first line should be with the lowest timestamp
+ * the first element in every line should be the element from the second column of the original .csv file
+ * then there should be 5 spaces
+ * the second element should be a timestamp from the original .csv file, but converted to ISO 8601 format (string like `2019-12-04T12:43:20Z`)
+ * then there should be 5 spaces
+ * the third element in every line should be the element from the third column of the original .csv file
+ * in the end of the string there should not be any spaces, only one end of line symbol `\n`
+
+You can use `cat`, `sort` and some other common tools that are available in console.
+Because this site is dedicated to Perl language it recommended to use `perl` command,
+but if you like, you can use `awk` and `sed`.  You can use any library that is shipped with perl, but you can't use any additional libraries.
+
+The name of the file is `data.csv` and your working directory is where that file is situated.
+```
+---
+```user_input
+```
+---
+```perlbanjo_runner
+## meta
+{
+    "kit_id" : "perl-5.30"
+}
+## command
+USER_INPUT
+## file data.csv
+1575463408,umcov,687
+1575463400,pimvj,541
+723816732,imbyt,187
+-1472017191,agiyp,331
+0,uslyf,478
+3068052535,bpctx,071
+99724668,uhzez,682
+## expected_output
+agiyp     1923-05-10T18:20:09Z     331
+uslyf     1970-01-01T00:00:00Z     478
+uhzez     1973-02-28T05:17:48Z     682
+imbyt     1992-12-08T12:12:12Z     187
+pimvj     2019-12-04T12:43:20Z     541
+umcov     2019-12-04T12:43:28Z     687
+bpctx     2067-03-22T20:48:55Z     071
+```
