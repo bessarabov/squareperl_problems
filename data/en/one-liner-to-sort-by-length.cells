@@ -1,0 +1,63 @@
+```meta
+{
+    "title" : "One-liner to sort lines from file by length"
+}
+```
+---
+```markdown
+# One-liner to sort lines from file by length
+
+Here is a task. You need to write a console one-liner to parse file `lines.txt`.
+
+Here is the contents of the file:
+
+	0123456789
+	Abc
+	D'oh!
+	I'm sorry Dave
+	JAPH
+	Lorem ipsum dolor sit amet, consectetur adipiscing elit
+	Zzzzzz
+	Привет
+
+Your task is to output the same lines from the file, but in sorted order.
+The lines in the output should go in order of increasing length.
+So, the  first line in the output should be `Abc` and the last line must be the
+line starting from `Lorem ipsum`.
+
+You can use `cat`, `sort` and some other common tools that are available in console.
+Because this site is dedicated to Perl language it recommended to use `perl` command,
+but if you like, you can use `awk` and `sed`.  You can use any library that is shipped with perl, but you can't use any additional libraries.
+
+Your working directory is where the file `lines.txt` is situated.
+```
+---
+```user_input
+```
+---
+```perlbanjo_runner
+## meta
+{
+    "kit_id" : "perl-5.30"
+}
+## command
+USER_INPUT
+## file lines.txt
+0123456789
+Abc
+D'oh!
+I'm sorry Dave
+JAPH
+Lorem ipsum dolor sit amet, consectetur adipiscing elit
+Zzzzzzz
+Привет
+## expected_output
+Abc
+JAPH
+D'oh!
+Привет
+Zzzzzzz
+0123456789
+I'm sorry Dave
+Lorem ipsum dolor sit amet, consectetur adipiscing elit
+```
